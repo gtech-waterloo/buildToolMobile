@@ -54,6 +54,20 @@ buildToolApp.config(['$routeProvider',
 	}
 ]);
 
+buildToolApp.controller('MainController', function($rootScope, $scope){
+    // User agent displayed in home page
+    $scope.userAgent = navigator.userAgent;
+
+    // Needed for the loading screen
+    $rootScope.$on('$routeChangeStart', function(){
+        $rootScope.loading = true;
+    });
+
+    $rootScope.$on('$routeChangeSuccess', function(){
+        $rootScope.loading = false;
+    });
+});
+
 buildToolApp.controller('DashboardCtrl', [
 	'$scope', 'Project',
 	function($scope,  Project){

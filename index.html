@@ -5,6 +5,14 @@
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-resource.min.js"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.26/angular-route.min.js"></script>
 
+        <script src="js/mobile-angular-ui.min.js"></script>
+        <!-- Required to use $swipe, $drag and Translate services -->
+        <script src="js/mobile-angular-ui.gestures.min.js"></script>
+
+        <link rel="stylesheet" href="css/mobile-angular-ui-hover.min.css" />
+        <link rel="stylesheet" href="css/mobile-angular-ui-base.min.css" />
+        <link rel="stylesheet" href="css/mobile-angular-ui-desktop.min.css" />
+
 
         <link rel="stylesheet" href="css/style.css">
 
@@ -12,15 +20,33 @@
         <script src="js/controller.js"></script>
         <script src="js/resources.js"></script>
     </header>
-    <body>
-        <div data-role="page" id="pageone">
-            <div data-role="header">
-                <h1>Build Tool Mobile</h1>
-            </div>
+    <body ng-controller="MainController">
+        <!-- Slidebars-->
+        <div ng-include="'view/sidebar.html'"
+            ui-track-as-search-param='true'
+            class="sidebar sidebar-left"></div>
 
-            <div data-role="main" class="ui-content">
-                <div ng-view class="view-wrap"></div>
+        <div class="app" ng-swipe-right='Ui.turnOn("uiSidebarLeft")' ng-swipe-left='Ui.turnOff("uiSidebarLeft")'>
+            <div data-role="page" id="pageone">
+                <div data-role="header">
+                    <h1>Build Tool Mobile</h1>
+                </div>
+
+                <div data-role="main" class="ui-content">
+                    <div ng-view class="view-wrap"></div>
+                </div>
             </div>
         </div>
+        <div ui-yield-to="modals"></div>
+
+        <script>
+           (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+           (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+           m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+           })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+           ga('create', 'UA-48036416-1', 'mobileangularui.com');
+           ga('send', 'pageview');
+         </script>
     </body>
 </html>
