@@ -1,0 +1,17 @@
+<div class="content">
+	<table class="table">
+		<thead class="table-head">
+			<tr>
+				<th>Name</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody class="table-body">
+			<tr ng-repeat='project in projects' class='row{{$index%2}}'>
+				<td><a href='#/project/{{project.name}}'>{{project.name}}</a></td>
+				<td>{{project.statusCode}}</td>
+			</tr>
+		</tbody>
+	</table>
+
+</div>

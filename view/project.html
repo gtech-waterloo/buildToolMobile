@@ -1,0 +1,12 @@
+<div class="content">
+	<table>
+		<tbody>
+			<tr ng-repeat='build in builds'>
+				<td width="40px" style="vertical-align: middle;"><div class="status{{build.buildStatus}}"></div></td>
+				<td width="50px"><a href="#/project/{{project.name}}/build/{{build.buildId}}">#{{build.buildId}}</a></td>
+				<td>{{build.buildTime | dateTime}}</td>
+				<td>{{build.buildDuration | duration}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
