@@ -23,16 +23,8 @@ var app = angular.module('MobileAngularUiExamples', [
 // in order to avoid unwanted routing.
 //
 app.config(function($routeProvider) {
-  $routeProvider.when('/',                          {templateUrl: 'home.html', controller: 'HomeCtrl', reloadOnSearch: false});
-  $routeProvider.when('/buildTool/projects',        {templateUrl: 'scroll.html', controller: 'ProjectsCtrl', reloadOnSearch: false});
-  $routeProvider.when('/toggle',                    {templateUrl: 'toggle.html', reloadOnSearch: false});
-  $routeProvider.when('/tabs',                      {templateUrl: 'tabs.html', reloadOnSearch: false});
-  $routeProvider.when('/accordion',                 {templateUrl: 'accordion.html', reloadOnSearch: false});
-  $routeProvider.when('/overlay',                   {templateUrl: 'overlay.html', reloadOnSearch: false});
-  $routeProvider.when('/forms',                     {templateUrl: 'forms.html', reloadOnSearch: false});
-  $routeProvider.when('/dropdown',                  {templateUrl: 'dropdown.html', reloadOnSearch: false});
-  $routeProvider.when('/drag',                      {templateUrl: 'drag.html', reloadOnSearch: false});
-  $routeProvider.when('/carousel',                  {templateUrl: 'carousel.html', reloadOnSearch: false});
+  $routeProvider.when('/',                          {templateUrl: 'home.html',   controller: 'HomeCtrl',     reloadOnSearch: false});
+  $routeProvider.when('/buildTool/projects',        {templateUrl: 'template/buildTool/projects.html', controller: 'ProjectsCtrl', reloadOnSearch: false});
 });
 
 //
