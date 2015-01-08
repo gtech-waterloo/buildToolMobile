@@ -20,7 +20,7 @@ app.config(['$routeProvider',
 		$routeProvider
 		.when('/', {
 			templateUrl: 'home.html',
-			controller: 'HomeCtrl',
+			controller: 'MainController',
             reloadOnSearch: false
 		})
 		;
