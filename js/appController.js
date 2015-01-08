@@ -13,7 +13,7 @@
 //    });
 //});
 
-var app = angular.module('app', ['ngRoute', 'mobile-angular-ui', 'mobile-angular-ui.gestures', 'projectTool.dateTimeFilter', 'buildTool.resources']);
+var app = angular.module('app', ['ngRoute', 'mobile-angular-ui', 'mobile-angular-ui.gestures']);
 
 app.config(['$routeProvider',
     function($routeProvider){
@@ -21,16 +21,6 @@ app.config(['$routeProvider',
 		.when('/', {
 			templateUrl: 'home.html',
 			controller: 'HomeCtrl',
-            reloadOnSearch: false
-		})
-        .when('/buildTool/projects', {
-			templateUrl: 'projectList.html',
-			controller: 'ProjectListCtrl',
-            reloadOnSearch: false
-		})
-        .when('/buildTool/project/:name', {
-			templateUrl: 'project.html',
-			controller: 'ProjectCtrl',
             reloadOnSearch: false
 		})
 		;
@@ -58,90 +48,18 @@ app.controller('MainController', function($rootScope, $scope){
 
 });
 
-app.controller('HomeCtrl', function($rootScope, $scope, $controller){
-    $controller('MainController', {$rootScope: $rootScope, $scope: $scope});
-    $rootScope.title = "Home";
-});
+//app.controller('HomeCtrl', function($rootScope, $scope, $controller){
+//    $controller('MainController', {$rootScope: $rootScope, $scope: $scope});
+//    $rootScope.title = "Home";
+//});
+//
+//app.controller('BuildToolAbstractCtrl', function($rootScope, $scope, $controller){
+//    $controller('MainController', {$rootScope: $rootScope, $scope: $scope});
+//    $rootScope.title = "Build Tool";
+//});
+//
+//app.controller('ProjectListCtrl', function($rootScope, $scope, $controller, Project){
+//    $controller('BuildToolAbstractCtrl', {$rootScope: $rootScope, $scope: $scope});
+//    $scope.projects = Project.query();
+//});
 
-app.controller('BuildToolAbstractCtrl', function($rootScope, $scope, $controller){
-    $controller('MainController', {$rootScope: $rootScope, $scope: $scope});
-    $rootScope.title = "Build Tool";
-});
-
-app.controller('ProjectListCtrl', function($rootScope, $scope, $controller, Project){
-    $controller('BuildToolAbstractCtrl', {$rootScope: $rootScope, $scope: $scope});
-    $scope.projects = Project.query();
-});
-
-app.controller('ProjectCtrl', function($rootScope, $scope, $http, $routeParams, $controller, Project, Build){
-    $controller('BuildToolAbstractCtrl', {$rootScope: $rootScope, $scope: $scope});
-
-    $scope.project = Project.get({name: $routeParams.name}, function(project){
-        $scope.builds = Build.query({projectId: project.id},
-                function(builds) {
-                    checkBuilds(builds);
-        });
-    });
-
-    $scope.build = function() {
-        $http.get("/ProjectTools/app/project/build/" + $scope.project.name).success(
-            function(data){
-                if (data.message == undefined) {
-                    $scope.builds = Build.query({projectId: $scope.project.id},
-                        function(builds) {
-                    });
-                } else {
-                    $scope.launch("notify", "Build notification", data.message);
-                }
-            }
-        );
-    };
-
-    var checkBuildProgress = function() {
-        $scope.builds = Build.query({projectId: $scope.project.id},
-            function(builds) {
-                checkBuilds(builds);
-        });
-    };
-
-//		var abortTimer = function() {
-//			clearTimeout(tid);
-//		};
-
-    var checkBuilds = function(builds) {
-        builds.forEach(function(build){
-            if (build.buildStatus != 4 && build.buildStatus != 5) {
-//				tid = setTimeout(checkBuildProgress, 2000);
-                return;
-            }
-        });
-    };
-
-    $scope.refresh = function() {
-        checkBuildProgress();
-    };
-
-    $scope.startSchedulerRun = function() {
-        $http.get("/ProjectTools/app/project/schedule/1/" + $scope.project.name).success(
-            function(data){
-                if (data.message == undefined) {
-                    $scope.project.schedulerEnabled = 1;
-                } else {
-                    $scope.launch("notify", "Build notification", data.message);
-                }
-            }
-        );
-    };
-
-    $scope.stopSchedulerRun = function() {
-        $http.get("/ProjectTools/app/project/schedule/0/" + $scope.project.name).success(
-            function(data){
-                if (data.message == undefined) {
-                    $scope.project.schedulerEnabled = 0;
-                } else {
-                    $scope.launch("notify", "Build notification", data.message);
-                }
-            }
-        );
-    };
-});
