@@ -1,0 +1,11 @@
+<div class="content">
+    <div class="list-group">
+        <ul style="padding-left: 0px;">
+            <li ng-repeat='build in builds'>
+                <a class="list-group-item" href='#/buildTool/project/{{project.name}}/build/{{build.buildId}}'>
+                    <span class="status{{build.buildStatus}}">&nbsp;&nbsp;&nbsp;&nbsp;</span>&nbsp;#{{build.buildId}} {{build.buildTime | dateTime}} <i class="pull-right">{{build.buildDuration | duration}}</i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>
