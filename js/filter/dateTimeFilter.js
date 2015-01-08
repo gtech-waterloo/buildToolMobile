@@ -1,4 +1,4 @@
-var filterService = angular.module('projectTool.datTimeFilter', []);
+var filterService = angular.module('projectTool.dateTimeFilter', []);
 
 filterService.filter('timeElapsed', function() {
 	var timeElapsedFilter = function(input) {
