@@ -19,17 +19,17 @@ app.config(['$routeProvider',
     function($routeProvider){
 		$routeProvider
 		.when('/', {
-			templateUrl: 'view/home.html',
+			templateUrl: 'home.html',
 			controller: 'HomeCtrl',
             reloadOnSearch: false
 		})
         .when('/buildTool/projects', {
-			templateUrl: 'view/buildTool/projectList.html',
+			templateUrl: 'projectList.html',
 			controller: 'ProjectListCtrl',
             reloadOnSearch: false
 		})
         .when('/buildTool/project/:name', {
-			templateUrl: 'view/buildTool/project.html',
+			templateUrl: 'project.html',
 			controller: 'ProjectCtrl',
             reloadOnSearch: false
 		})
