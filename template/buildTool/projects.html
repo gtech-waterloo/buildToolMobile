@@ -1,4 +1,12 @@
 <div class="content">
     <h1>Scroll</h1>
     {{scrollValue}}
+
+    <div class="list-group">
+        <ul style="padding-left: 0px;">
+            <li ng-repeat='project in projects'>
+                <a class="list-group-item" href='#/buildTool/project/{{project.name}}'><i class="fa fa-cube"></i> {{project.name}}</a>
+            </li>
+        </ul>
+    </div>
 </div>

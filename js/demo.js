@@ -274,7 +274,9 @@ app.controller('HomeCtrl', function($rootScope, $scope, $controller){
     $controller('MainController', {$rootScope: $rootScope, $scope: $scope});
     $scope.homeValue = "Home Value";
 });
-app.controller('ProjectsCtrl', function($rootScope, $scope, $controller){
+app.controller('ProjectsCtrl', function($rootScope, $scope, $controller, Project){
     $controller('MainController', {$rootScope: $rootScope, $scope: $scope});
     $scope.scrollValue = "Scroll Value";
+
+    $scope.projects = Project.query();
 });
