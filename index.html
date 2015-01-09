@@ -25,19 +25,6 @@
         <script src="js/buildToolResources.js"></script>
         <script src="js/mobileApp.js"></script>
 
-        <script>
-            document.addEventListener("deviceready", function(){
-                id = "deviceready";
-                var parentElement = document.getElementById(id);
-                var listeningElement = parentElement.querySelector('.listening');
-                var receivedElement = parentElement.querySelector('.received');
-
-                listeningElement.setAttribute('style', 'display:none;');
-                receivedElement.setAttribute('style', 'display:block;');
-
-                console.log('Received Event: ' + id);
-            }, true);
-        </script>
     </head>
 
     <body ng-app="mobildApp">
@@ -51,7 +38,7 @@
                 class="sidebar sidebar-right"></div>
 
         <div id="deviceready" style="height:100%">
-            <p class="event listening">Connecting to Device</p>
+<!--            <p class="event listening">Connecting to Device</p>-->
 <!--            <p class="event received">Device is Ready</p>-->
 
 
@@ -101,7 +88,7 @@
 
         <div ui-yield-to="modals"></div>
 
-        <script type="text/javascript" src="js/phonegap.js"></script>
+        <script type="text/javascript" src="phonegap.js"></script>
         <script>
             (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
             (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),

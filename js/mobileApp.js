@@ -27,6 +27,8 @@ app.config(function($routeProvider) {
     $routeProvider.when('/',                          {templateUrl: 'home.html',   controller: 'HomeCtrl',     reloadOnSearch: false});
     $routeProvider.when('/buildTool/projects',        {templateUrl: 'template/buildTool/projects.html', controller: 'ProjectsCtrl', reloadOnSearch: false});
     $routeProvider.when('/buildTool/project/:name',   {templateUrl: 'template/buildTool/project.html',  controller: 'ProjectCtrl', reloadOnSearch: false});
+    $routeProvider.when('/lab',                       {templateUrl: 'template/lab/dashboard.html',      controller: 'LabDashCtrl', reloadOnSearch: false});
+    $routeProvider.when('/lab/geoLocation',           {templateUrl: 'template/lab/geoLocation.html',      controller: 'LabDashCtrl', reloadOnSearch: false});
 });
 
 
@@ -50,6 +52,7 @@ app.controller('MainController', function($rootScope, $scope){
     });
 
     $rootScope.appVersion = "0.1 beta";
+
 });
 
 app.controller('HomeCtrl', function($rootScope, $scope, $controller){
@@ -134,3 +137,24 @@ app.controller('ProjectCtrl', function($rootScope, $scope, $http, $routeParams, 
         );
     };
 });
+
+app.controller('LabAbsCtrl', function($rootScope, $scope, $controller){
+    $controller('MainController', {$rootScope: $rootScope, $scope: $scope});
+    $rootScope.title = "Lab";
+});
+
+app.controller('LabDashCtrl', function($rootScope, $scope, $controller){
+    $controller('LabAbsCtrl', {$rootScope: $rootScope, $scope: $scope});
+
+    $scope.getLocation = function() {
+        navigator.geolocation.getCurrentPosition(
+            function(position) {
+                $scope.lat = position.coords.latitude;
+                $scope.lon = position.coords.longitude;
+            },
+            function() {
+                alert('Error getting location');
+            });
+    };
+});
+
