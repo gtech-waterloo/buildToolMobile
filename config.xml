@@ -17,6 +17,11 @@
 
     <preference name="permissions" value="none"/>
 
+    <feature name="Geolocation">
+        <param name="android-package" value="org.apache.cordova.geolocation.GeoBroker" />
+    </feature>
+
+<!--
     <feature name="http://api.phonegap.com/3.0/camera"/>
     <feature name="http://api.phonegap.com/3.0/contacts"/>
     <feature name="http://api.phonegap.com/3.0/file"/>
@@ -25,5 +30,6 @@
     <feature name="http://api.phonegap.com/3.0/network"/>
     <feature name="http://api.phonegap.com/3.0/notification"/>
     <feature name="http://api.phonegap.com/3.0/accelerometer"/>
+-->
 
 </widget>
