@@ -48,6 +48,8 @@ app.controller('MainController', function($rootScope, $scope){
     $rootScope.$on('$routeChangeSuccess', function(){
         $rootScope.loading = false;
     });
+
+    $rootScope.appVersion = "0.1 beta";
 });
 
 app.controller('HomeCtrl', function($rootScope, $scope, $controller){
