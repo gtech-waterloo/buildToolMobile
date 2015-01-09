@@ -173,31 +173,26 @@ app.controller('LabAccelerometerCtrl', function($rootScope, $scope, $controller)
 
     $scope.watchID = null;
 
-    var updateData = function(acceleration) {
-        $scope.acceleration = {
-            "x":acceleration.x,
-            "y":acceleration.y,
-            "z":acceleration.z,
-            "timestamp":acceleration.timestamp,
-        };
+    function onSuccess(acceleration) {
+        $scope.$apply(function(){
+            $scope.acceleration = {
+                "x":acceleration.x,
+                "y":acceleration.y,
+                "z":acceleration.z,
+                "timestamp":acceleration.timestamp,
+            };
+        });
+    };
+    function onError() {
+        alert('Acceleometer Error!');
     };
     $scope.getAcceleration = function() {
-        navigator.accelerometer.getCurrentAcceleration(
-            function(acceleration){
-                updateData(acceleration);
-            },
-            function(){
-            });
+        navigator.accelerometer.getCurrentAcceleration(onSuccess, onError);
     };
     $scope.startWatch = function() {
-        var options = { frequency: 100 };
+        var options = { frequency: 500 };
 
-        $scope.watchID = navigator.accelerometer.watchAcceleration(function(acceleration){
-                updateData(acceleration);
-            },
-            function(){
-            },
-            options);
+        $scope.watchID = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
     };
     $scope.stopWatch = function() {
         if ($scope.watchID) {
