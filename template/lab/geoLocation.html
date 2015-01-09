@@ -1,5 +1,15 @@
 <div class="content">
-    <button ng-click="getLocation()">Current Location</button>
-    <div>Lat: {{lat}}</div>
-    <div>Lon: {{lon}}</div>
+    <div style="background-color:white;">
+        <div>Latitude: {{position.latitude}}</div>
+        <div>Longitude: {{position.longitude}}</div>
+        <div>Altitude: {{position.altitude}}</div>
+        <div>Accuracy: {{position.accuracy}}</div>
+        <div>Altitude Accuracy: {{position.alt-accuracy}}</div>
+        <div>Heading: {{position.heading}}</div>
+        <div>Speed: {{position.speed}}</div>
+        <div>Timestamp: {{position.timestamp}}</div>
+    </div>
+
+    <button class="btn btn-default" ng-click="getLocation()">Current Location</button>
+
 </div>

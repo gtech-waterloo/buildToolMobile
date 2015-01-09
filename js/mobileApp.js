@@ -149,8 +149,16 @@ app.controller('LabDashCtrl', function($rootScope, $scope, $controller){
     $scope.getLocation = function() {
         navigator.geolocation.getCurrentPosition(
             function(position) {
-                $scope.lat = position.coords.latitude;
-                $scope.lon = position.coords.longitude;
+                $scope.position = {
+                    "latitude":     position.coords.latitude,
+                    "longitude":    position.coords.longitude,
+                    "altitude":     position.coords.altitude,
+                    "accuracy":     position.coords.accuracy,
+                    "alt-accuracy": position.coords.altitudeAccuracy,
+                    "heading":      position.coords.heading ,
+                    "speed":        position.coords.speed ,
+                    "timestamp":    position.timestamp
+                };
             },
             function() {
                 alert('Error getting location');
