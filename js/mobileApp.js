@@ -28,7 +28,8 @@ app.config(function($routeProvider) {
     $routeProvider.when('/buildTool/projects',        {templateUrl: 'template/buildTool/projects.html', controller: 'ProjectsCtrl', reloadOnSearch: false});
     $routeProvider.when('/buildTool/project/:name',   {templateUrl: 'template/buildTool/project.html',  controller: 'ProjectCtrl', reloadOnSearch: false});
     $routeProvider.when('/lab',                       {templateUrl: 'template/lab/dashboard.html',      controller: 'LabDashCtrl', reloadOnSearch: false});
-    $routeProvider.when('/lab/geoLocation',           {templateUrl: 'template/lab/geoLocation.html',      controller: 'LabDashCtrl', reloadOnSearch: false});
+    $routeProvider.when('/lab/geoLocation',           {templateUrl: 'template/lab/geoLocation.html',      controller: 'LabGeoLocationCtrl', reloadOnSearch: false});
+    $routeProvider.when('/lab/accelerometer',           {templateUrl: 'template/lab/accelerometer.html',      controller: 'LabAccelerometerCtrl', reloadOnSearch: false});
 });
 
 
@@ -143,7 +144,7 @@ app.controller('LabAbsCtrl', function($rootScope, $scope, $controller){
     $rootScope.title = "Lab";
 });
 
-app.controller('LabDashCtrl', function($rootScope, $scope, $controller){
+app.controller('LabGeoLocationCtrl', function($rootScope, $scope, $controller){
     $controller('LabAbsCtrl', {$rootScope: $rootScope, $scope: $scope});
 
     $scope.getLocation = function() {
@@ -166,3 +167,21 @@ app.controller('LabDashCtrl', function($rootScope, $scope, $controller){
     };
 });
 
+
+app.controller('LabAccelerometerCtrl', function($rootScope, $scope, $controller){
+    $controller('LabAbsCtrl', {$rootScope: $rootScope, $scope: $scope});
+
+    $scope.getAcceleration = function() {
+        navigator.accelerometer.getCurrentAcceleration(
+            function(acceleration){
+                $scope.acceleration = {
+                    "x":acceleration.x,
+                    "y":acceleration.y,
+                    "z":acceleration.z,
+                    "timestamp":acceleration.timestamp,
+                };
+            },
+            function(){
+            });
+    };
+});
