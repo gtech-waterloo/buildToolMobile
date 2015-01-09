@@ -171,17 +171,33 @@ app.controller('LabGeoLocationCtrl', function($rootScope, $scope, $controller){
 app.controller('LabAccelerometerCtrl', function($rootScope, $scope, $controller){
     $controller('LabAbsCtrl', {$rootScope: $rootScope, $scope: $scope});
 
+    $scope.watchID = null;
+
+    var updateData = function(acceleration) {
+        $scope.acceleration = {
+            "x":acceleration.x,
+            "y":acceleration.y,
+            "z":acceleration.z,
+            "timestamp":acceleration.timestamp,
+        };
+    };
     $scope.getAcceleration = function() {
         navigator.accelerometer.getCurrentAcceleration(
             function(acceleration){
-                $scope.acceleration = {
-                    "x":acceleration.x,
-                    "y":acceleration.y,
-                    "z":acceleration.z,
-                    "timestamp":acceleration.timestamp,
-                };
+                updateData(acceleration);
             },
             function(){
             });
+    };
+    $scope.startWatch = function() {
+        var options = { frequency: 100 };
+
+        $scope.watchID = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
+    };
+    $scope.stopWatch = function() {
+        if ($scope.watchID) {
+            navigator.accelerometer.clearWatch($scope.watchID);
+            $scope.watchID = null;
+        }
     };
 });

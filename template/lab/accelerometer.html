@@ -5,5 +5,7 @@
         <div>Acceleration Z: {{acceleration.z}}</div>
         <div>Timestamp: {{acceleration.timestamp}}</div>
     </div>
-    <button class="btn btn-default" ng-click="getAcceleration()">Get Acceleration</button>
+    <button class="btn btn-default" ng-click="getAcceleration()">Get Current Acceleration</button>
+    <button ng-hide="watchID" class="btn btn-default" ng-click="startWatch()">Start Watch</button>
+    <button ng-show="watchID" class="btn btn-default" ng-click="stopWatch()">Stop Watch</button>
 </div>
