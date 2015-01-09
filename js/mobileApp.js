@@ -192,7 +192,12 @@ app.controller('LabAccelerometerCtrl', function($rootScope, $scope, $controller)
     $scope.startWatch = function() {
         var options = { frequency: 100 };
 
-        $scope.watchID = navigator.accelerometer.watchAcceleration(onSuccess, onError, options);
+        $scope.watchID = navigator.accelerometer.watchAcceleration(function(acceleration){
+                updateData(acceleration);
+            },
+            function(){
+            },
+            options);
     };
     $scope.stopWatch = function() {
         if ($scope.watchID) {
