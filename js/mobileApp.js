@@ -257,13 +257,23 @@ app.controller('LabCameraCtrl', function($rootScope, $scope, $controller){
     }
 
     $scope.capturePhoto = function(){
+        if (!navigator.camera) {
+            app.showAlert("Camera API not supported", "Error");
+            return;
+        }
+
+        var options =   {
+            quality: 50,
+            destinationType: Camera.DestinationType.DATA_URL,
+            sourceType: 1,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
+            encodingType: 0     // 0=JPG 1=PNG
+        };
+
         navigator.camera.getPicture(
             onPhotoDataSuccess,
             onFail,
-            {
-                quality: 50,
-                destinationType: destinationType.DATA_URL
-            });
+            options
+        );
     };
 
     $scope.capturePhotoEdit = function(){
