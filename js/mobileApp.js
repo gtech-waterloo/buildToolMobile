@@ -24,12 +24,13 @@ var app = angular.module('mobildApp', [
 // in order to avoid unwanted routing.
 //
 app.config(function($routeProvider) {
-    $routeProvider.when('/',                          {templateUrl: 'home.html',   controller: 'HomeCtrl',     reloadOnSearch: false});
-    $routeProvider.when('/buildTool/projects',        {templateUrl: 'template/buildTool/projects.html', controller: 'ProjectsCtrl', reloadOnSearch: false});
-    $routeProvider.when('/buildTool/project/:name',   {templateUrl: 'template/buildTool/project.html',  controller: 'ProjectCtrl', reloadOnSearch: false});
-    $routeProvider.when('/lab',                       {templateUrl: 'template/lab/dashboard.html',      controller: 'LabDashCtrl', reloadOnSearch: false});
-    $routeProvider.when('/lab/geoLocation',           {templateUrl: 'template/lab/geoLocation.html',      controller: 'LabGeoLocationCtrl', reloadOnSearch: false});
-    $routeProvider.when('/lab/accelerometer',           {templateUrl: 'template/lab/accelerometer.html',      controller: 'LabAccelerometerCtrl', reloadOnSearch: false});
+    $routeProvider.when('/',                            {templateUrl: 'home.html',                              controller: 'HomeCtrl',     reloadOnSearch: false});
+    $routeProvider.when('/buildTool/projects',          {templateUrl: 'template/buildTool/projects.html',       controller: 'ProjectsCtrl', reloadOnSearch: false});
+    $routeProvider.when('/buildTool/project/:name',     {templateUrl: 'template/buildTool/project.html',        controller: 'ProjectCtrl', reloadOnSearch: false});
+    $routeProvider.when('/lab',                         {templateUrl: 'template/lab/dashboard.html',            controller: 'LabDashCtrl', reloadOnSearch: false});
+    $routeProvider.when('/lab/geoLocation',             {templateUrl: 'template/lab/geoLocation.html',          controller: 'LabGeoLocationCtrl', reloadOnSearch: false});
+    $routeProvider.when('/lab/accelerometer',           {templateUrl: 'template/lab/accelerometer.html',        controller: 'LabAccelerometerCtrl', reloadOnSearch: false});
+    $routeProvider.when('/lab/camera',                  {templateUrl: 'template/lab/camera.html',               controller: 'LabCameraCtrl', reloadOnSearch: false});
 });
 
 
@@ -144,6 +145,10 @@ app.controller('LabAbsCtrl', function($rootScope, $scope, $controller){
     $rootScope.title = "Lab";
 });
 
+app.controller('LabDashCtrl', function($rootScope, $scope, $controller){
+    $controller('LabAbsCtrl', {$rootScope: $rootScope, $scope: $scope});
+});
+
 app.controller('LabGeoLocationCtrl', function($rootScope, $scope, $controller){
     $controller('LabAbsCtrl', {$rootScope: $rootScope, $scope: $scope});
 
@@ -166,7 +171,6 @@ app.controller('LabGeoLocationCtrl', function($rootScope, $scope, $controller){
             });
     };
 });
-
 
 app.controller('LabAccelerometerCtrl', function($rootScope, $scope, $controller){
     $controller('LabAbsCtrl', {$rootScope: $rootScope, $scope: $scope});
@@ -200,4 +204,88 @@ app.controller('LabAccelerometerCtrl', function($rootScope, $scope, $controller)
             $scope.watchID = null;
         }
     };
+});
+
+app.controller('LabCameraCtrl', function($rootScope, $scope, $controller){
+    $controller('LabAbsCtrl', {$rootScope: $rootScope, $scope: $scope});
+
+    var pictureSource = navigator.camera.PictureSourceType;   // picture source
+    var destinationType = navigator.camera.DestinationType; // sets the format of returned value
+
+    // Called when a photo is successfully retrieved
+    //
+    function onPhotoDataSuccess(imageData) {
+        // Uncomment to view the base64-encoded image data
+        // console.log(imageData);
+
+        // Get image handle
+        //
+        var smallImage = document.getElementById('smallImage');
+
+        // Unhide image elements
+        //
+        smallImage.style.display = 'block';
+
+        // Show the captured photo
+        // The in-line CSS rules are used to resize the image
+        //
+        smallImage.src = "data:image/jpeg;base64," + imageData;
+    }
+
+    // Called when a photo is successfully retrieved
+    //
+    function onPhotoURISuccess(imageURI) {
+        // Uncomment to view the image file URI
+        // console.log(imageURI);
+
+        // Get image handle
+        //
+        var largeImage = document.getElementById('largeImage');
+
+        // Unhide image elements
+        //
+        largeImage.style.display = 'block';
+
+        // Show the captured photo
+        // The in-line CSS rules are used to resize the image
+        //
+        largeImage.src = imageURI;
+    }
+
+    function onFail(message) {
+      alert('Failed because: ' + message);
+    }
+
+    $scope.capturePhoto = function(){
+        navigator.camera.getPicture(
+            onPhotoDataSuccess,
+            onFail,
+            {
+                quality: 50,
+                destinationType: destinationType.DATA_URL
+            });
+    };
+
+    $scope.capturePhotoEdit = function(){
+        navigator.camera.getPicture(
+            onPhotoDataSuccess,
+            onFail,
+            {
+                quality: 20,
+                allowEdit: true,
+                destinationType: destinationType.DATA_URL
+            });
+    };
+
+    $scope.getPhoto = function(source) {
+        navigator.camera.getPicture(
+            onPhotoURISuccess,
+            onFail,
+            {
+                quality: 50,
+                destinationType: destinationType.FILE_URI,
+                sourceType: source
+            });
+    };
+
 });
