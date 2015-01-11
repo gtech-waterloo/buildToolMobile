@@ -31,6 +31,7 @@ app.config(function($routeProvider) {
     $routeProvider.when('/lab/geoLocation',             {templateUrl: 'template/lab/geoLocation.html',          controller: 'LabGeoLocationCtrl', reloadOnSearch: false});
     $routeProvider.when('/lab/accelerometer',           {templateUrl: 'template/lab/accelerometer.html',        controller: 'LabAccelerometerCtrl', reloadOnSearch: false});
     $routeProvider.when('/lab/camera',                  {templateUrl: 'template/lab/camera.html',               controller: 'LabCameraCtrl', reloadOnSearch: false});
+    $routeProvider.when('/lab/battery',                  {templateUrl: 'template/lab/battery.html',             controller: 'LabBatteryCtrl', reloadOnSearch: false});
 });
 
 
@@ -309,4 +310,17 @@ app.controller('LabCameraCtrl', function($rootScope, $scope, $controller){
                 sourceType: Camera.PictureSourceType.CAMERA.SAVEDPHOTOALBUM
             });
     };
+});
+
+app.controller('LabBatteryCtrl', function($rootScope, $scope, $controller){
+    $controller('LabAbsCtrl', {$rootScope: $rootScope, $scope: $scope});
+
+    window.addEventListener(
+        "batterystatus",
+        function(info){
+            $scope.batteryInfo = info;
+        },
+        false
+    );
+
 });
