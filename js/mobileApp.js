@@ -265,7 +265,7 @@ app.controller('LabCameraCtrl', function($rootScope, $scope, $controller){
         var options =   {
             quality: 50,
             destinationType: Camera.DestinationType.DATA_URL,
-            sourceType: Camera.PictureSourceType.CAMERA,      // 0:Photo Library, 1=Camera, 2=Saved Photo Album
+            sourceType: Camera.PictureSourceType.CAMERA,
             encodingType: 0     // 0=JPG 1=PNG
         };
 
@@ -283,6 +283,7 @@ app.controller('LabCameraCtrl', function($rootScope, $scope, $controller){
             {
                 quality: 20,
                 allowEdit: true,
+                sourceType: Camera.PictureSourceType.CAMERA,
                 destinationType: destinationType.DATA_URL
             });
     };
@@ -297,5 +298,4 @@ app.controller('LabCameraCtrl', function($rootScope, $scope, $controller){
                 sourceType: source
             });
     };
-
 });
