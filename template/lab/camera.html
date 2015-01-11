@@ -1,8 +1,8 @@
 <div class="content">
     <button ng-click="capturePhoto();">Capture Photo</button> <br>
     <button ng-click="capturePhotoEdit();">Capture Editable Photo</button> <br>
-    <button ng-click="getPhoto(Camera.PictureSourceType.CAMERA.PHOTOLIBRARY);">From Photo Library</button><br>
-    <button ng-click="getPhoto(Camera.PictureSourceType.CAMERA.SAVEDPHOTOALBUM);">From Photo Album</button><br>
+    <button ng-click="getPhotoFromLibrary();">From Photo Library</button><br>
+    <button ng-click="getPhotoFromAlbum();">From Photo Album</button><br>
     <img style="display:none;width:60px;height:60px;" id="smallImage" src="" />
     <img style="display:none;" id="largeImage" src="" />
 </div>

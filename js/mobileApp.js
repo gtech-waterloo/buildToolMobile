@@ -288,14 +288,25 @@ app.controller('LabCameraCtrl', function($rootScope, $scope, $controller){
             });
     };
 
-    $scope.getPhoto = function(source) {
+    $scope.getPhotoFromLibrary = function(source) {
         navigator.camera.getPicture(
             onPhotoURISuccess,
             onFail,
             {
                 quality: 50,
                 destinationType: destinationType.FILE_URI,
-                sourceType: source
+                sourceType: Camera.PictureSourceType.CAMERA.PHOTOLIBRARY
+            });
+    };
+
+    $scope.getPhotoFromAlbum = function(source) {
+        navigator.camera.getPicture(
+            onPhotoURISuccess,
+            onFail,
+            {
+                quality: 50,
+                destinationType: destinationType.FILE_URI,
+                sourceType: Camera.PictureSourceType.CAMERA.SAVEDPHOTOALBUM
             });
     };
 });
