@@ -315,7 +315,7 @@ app.controller('LabCameraCtrl', function($rootScope, $scope, $controller){
 app.controller('LabBatteryCtrl', function($rootScope, $scope, $controller){
     $controller('LabAbsCtrl', {$rootScope: $rootScope, $scope: $scope});
 
-    window.addEventListener(
+    document.addEventListener(
         "batterystatus",
         function(info){
             $scope.batteryInfo = info;
