@@ -154,6 +154,8 @@ app.controller('LabGeoLocationCtrl', function($rootScope, $scope, $controller){
     $controller('LabAbsCtrl', {$rootScope: $rootScope, $scope: $scope});
 
     $scope.getLocation = function() {
+
+
         navigator.geolocation.getCurrentPosition(
             function(position) {
                 $scope.position = {
@@ -166,10 +168,35 @@ app.controller('LabGeoLocationCtrl', function($rootScope, $scope, $controller){
                     "speed":        position.coords.speed ,
                     "timestamp":    position.timestamp
                 };
+
+                var latLong = new google.maps.LatLng($scope.position.latitude, $scope.position.longitude);
+
+                var mapOptions = {
+                    center: latLong,
+                    zoom: 13,
+                    mapTypeId: google.maps.MapTypeId.ROADMAP
+                };
+
+                var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+                var marker = new google.maps.Marker({
+                      position: latLong,
+                      map: map,
+                      title: 'my location'
+                });
+
+
             },
             function() {
                 alert('Error getting location');
             });
+
+
+
+
+
+
+
     };
 });
 
